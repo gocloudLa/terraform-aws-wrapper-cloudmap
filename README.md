@@ -29,6 +29,11 @@ cloudmap_parameters = {
 
 
 
+## 📑 Inputs
+| Name     | Description                                                                    | Type     | Default | Required |
+| -------- | ------------------------------------------------------------------------------ | -------- | ------- | -------- |
+| `vpc_id` | Specifies the identifier of the VPC associated with the zone if it is private. | `string` | `""`    | no       |
+
 
 
 
