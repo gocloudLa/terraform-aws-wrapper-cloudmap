@@ -13,7 +13,6 @@ The main purpose is to configure cloudmap parameters for multiple projects withi
 - **Module Source**: The module is sourced from a relative path '../../'.
 - **Metadata**: The module utilizes local metadata for configuration.
 - **Cloudmap Parameters**: Cloudmap parameters are defined for 'project1' and 'project2' within the specified zone.
-- **Vpc Configuration**: The VPC ID is explicitly set to 'vpc-0089bac63387b453c', although it should ideally be sourced from another module.
 
 ## 🚀 Quick Start
 
