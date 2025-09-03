@@ -15,12 +15,12 @@ The Terraform wrapper for CloudMap simplifies the configuration of the CloudMap 
 
 ## 🚀 Quick Start
 ```hcl
-  cloudmap_parameters = {
+cloudmap_parameters = {
     "project1.${local.zone_internal}" = {}
     "project2.${local.zone_internal}" = {}
   }
 
-  # Should come as output from the wrapper_vpc module
+  # Deberia venir como output del modulo de wrapper_vpc.
   vpc_id = module.wrapper_vpc.vpc.vpc_id
 ```
 
