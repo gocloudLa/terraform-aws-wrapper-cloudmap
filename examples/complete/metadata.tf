@@ -6,6 +6,8 @@ locals {
     public_domain  = "democorp.cloud"
     private_domain = "democorp"
 
+    internal_domain = "democorp.internal"
+
     key = {
       company = "dmc"
       region  = "use1"
