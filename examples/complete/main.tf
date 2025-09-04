@@ -14,7 +14,7 @@ module "wrapper_cloudmap" {
     }
   }
 
-  # Deberia venir como output del modulo de wrapper_vpc.
+  # It should come as output from the wrapper_vpc module.
   # vpc_id = module.wrapper_vpc.vpc.vpc_id
   
   vpc_id = "vpc-xxxxxxxxxxxxxx"
