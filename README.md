@@ -34,6 +34,7 @@ cloudmap_parameters = {
 | -------- | ------------------------------------------------------------------------------ | -------- | ------- | -------- |
 | `name`   | Define the domain name, using the key of each entry in the map.                | `any`    | `{}`    | no       |
 | `vpc_id` | Specifies the identifier of the VPC associated with the zone if it is private. | `string` | `""`    | no       |
+| `tags`   | A map of tags to assign to resources.                                          | `map`    | `{}`    | no       |
 
 
 
