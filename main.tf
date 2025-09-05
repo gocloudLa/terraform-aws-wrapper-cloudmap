@@ -4,7 +4,8 @@ resource "aws_service_discovery_private_dns_namespace" "private" {
   name        = each.key
   vpc         = try(each.value.vpc_id, var.vpc_id)
   description = "Managed by Terraform"
-  tags        = local.common_tags
+
+  tags = merge(local.common_tags, try(each.value.tags, var.cloudmap_defaults.tags, null))
 }
 
 # resource "aws_service_discovery_public_dns_namespace" "public" {
