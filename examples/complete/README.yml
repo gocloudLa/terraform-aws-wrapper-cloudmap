@@ -1,0 +1,7 @@
+title: "Complete Example"
+description: "This example demonstrates the usage of a Terraform module to configure cloudmap parameters within a specified VPC."
+main_purpose: "The main purpose is to configure cloudmap parameters for multiple projects within a specified VPC using a Terraform module."
+key_features:
+  - "**Module Source**: The module is sourced from a relative path '../../'."
+  - "**Metadata**: The module utilizes local metadata for configuration."
+  - "**Cloudmap Parameters**: Cloudmap parameters are defined for 'project1' and 'project2' within the specified zone."
