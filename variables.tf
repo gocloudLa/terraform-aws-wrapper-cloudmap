@@ -21,8 +21,8 @@ variable "cloudmap_defaults" {
   default     = {}
 }
 
-variable "vpc_id" {
-  type        = string
-  description = ""
-  default     = ""
+variable "vpc_parameter" {
+  type        = any
+  description = "VPC wrapper-style map: `vpcs.<key>.vpc_id`. Each namespace needs `vpc_id` or `vpc` (key into `vpcs`)."
+  default     = {}
 }

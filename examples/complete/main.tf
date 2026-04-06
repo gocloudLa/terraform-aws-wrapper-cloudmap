@@ -5,17 +5,18 @@ module "wrapper_cloudmap" {
 
   cloudmap_parameters = {
     "project1.${local.zone_internal}" = {
-      # Optional: Override VPC ID for this specific namespace
-      # vpc_id = "vpc-specific-for-project1"
+      vpc = "networking"
+      # Or: vpc_id = "vpc-xxxxxxxxxxxxxx"
     }
     "project2.${local.zone_internal}" = {
-      # Optional: Override VPC ID for this specific namespace
-      # vpc_id = "vpc-specific-for-project2"
+      vpc = "networking"
     }
   }
 
-  # It should come as output from the wrapper_vpc module.
-  # vpc_id = module.wrapper_vpc.vpc.vpc_id
-
-  vpc_id = "vpc-xxxxxxxxxxxxxx"
+  # Should come from wrapper_vpc (e.g. `vpc_parameter = { vpcs = module.wrapper_vpc.vpcs }`). Hardcoded here only so this example is self-contained.
+  vpc_parameter = {
+    vpcs = {
+      networking = { vpc_id = "vpc-xxxxxxxxxxxxxx" }
+    }
+  }
 }

@@ -2,7 +2,7 @@ resource "aws_service_discovery_private_dns_namespace" "private" {
   for_each = var.cloudmap_parameters
 
   name        = each.key
-  vpc         = try(each.value.vpc_id, var.vpc_id)
+  vpc         = try(each.value.vpc_id, var.vpc_parameter.vpcs[each.value.vpc].vpc_id)
   description = "Managed by Terraform"
 
   tags = merge(local.common_tags, try(each.value.tags, var.cloudmap_defaults.tags, null))
