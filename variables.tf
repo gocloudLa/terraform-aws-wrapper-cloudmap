@@ -11,18 +11,18 @@ variable "metadata" {
 /*----------------------------------------------------------------------*/
 variable "cloudmap_parameters" {
   type        = any
-  description = "CloudMap parameteres to declare Namespaces"
+  description = "CloudMap parameters to declare Namespaces."
   default     = {}
 }
 
 variable "cloudmap_defaults" {
   type        = any
-  description = "CloudMap default parameteres to declare Namespaces"
+  description = "Default values merged into each entry of cloudmap_parameters."
   default     = {}
 }
 
 variable "vpc_parameter" {
   type        = any
-  description = "VPC wrapper-style map: `vpcs.<key>.vpc_id`. Each namespace needs `vpc_id` or `vpc` (key into `vpcs`)."
+  description = "VPC wrapper output map used to resolve vpc_id by key reference."
   default     = {}
 }
