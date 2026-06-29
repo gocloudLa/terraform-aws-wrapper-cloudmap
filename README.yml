@@ -1,5 +1,6 @@
-module_name: Terraform AWS CloudMap Module
-module_description: The Terraform wrapper for CloudMap simplifies the configuration of the CloudMap / ServiceDiscovery service in the AWS cloud. This wrapper functions as a predefined template, facilitating the creation and management of the CloudMap service by handling all the technical details.
+module_name: "Terraform CloudMap Module"
+module_description: |
+  Provision and manage AWS Cloud Map private DNS namespaces at scale, with per-namespace VPC association, opinionated tagging, and native integration with the GoCloud VPC wrapper.
 module_badges:
   - url: "https://github.com/gocloudLa/terraform-aws-wrapper-cloudmap/releases/latest"
     image: "https://img.shields.io/github/v/release/gocloudLa/terraform-aws-wrapper-cloudmap.svg?style=for-the-badge"
@@ -13,16 +14,66 @@ module_badges:
 quick_start: |
   ```hcl
   cloudmap_parameters = {
-      "project1.${local.zone_internal}" = {}
-      "project2.${local.zone_internal}" = {}
+    "project1.${local.zone_internal}" = {
+      vpc = "networking"
+      # Or: vpc_id = "vpc-xxxxxxxxxxxxxx"
     }
-  
-    # Deberia venir como output del modulo de wrapper_vpc.
-    vpc_id = module.wrapper_vpc.vpc.vpc_id
+    "project2.${local.zone_internal}" = {
+      vpc = "networking"
+    }
+  }
   ```
-features: []
-important_notes: ""
+features:
+  - icon: "🗺️"
+    title: "Private DNS Namespace Management"
+    short_description: "Create and manage multiple AWS Cloud Map private DNS namespaces with a single for_each block."
+    long_description: |
+      Each key in `cloudmap_parameters` becomes an `aws_service_discovery_private_dns_namespace` resource. Defaults from `cloudmap_defaults` are merged into every entry via a `try()` chain, keeping per-namespace overrides minimal.
+    examples:
+      - title: "Two namespaces sharing a default VPC"
+        code: |
+          ```hcl
+          cloudmap_parameters = {
+            "project1.${local.zone_internal}" = {
+              vpc = "networking"
+            }
+            "project2.${local.zone_internal}" = {
+              vpc = "networking"
+            }
+          }
+
+          cloudmap_defaults = {
+            tags = { team = "platform" }
+          }
+          ```
+  - icon: "🔗"
+    title: "Flexible VPC Association"
+    short_description: "Associate each namespace with a VPC by direct ID or by key reference into the VPC wrapper output."
+    long_description: |
+      Each namespace entry accepts either a literal `vpc_id` string or a `vpc` key that is resolved against `vpc_parameter.vpcs[vpc].vpc_id`. This allows the example to be self-contained with a placeholder while production configs wire in `module.wrapper_vpc.vpcs` directly.
+    examples:
+      - title: "Direct vpc_id vs. key reference"
+        code: |
+          ```hcl
+          cloudmap_parameters = {
+            "services.${local.zone_internal}" = {
+              vpc_id = "vpc-xxxxxxxxxxxxxx"  # Direct
+            }
+            "infra.${local.zone_internal}" = {
+              vpc = "networking"  # Resolved via vpc_parameter.vpcs
+            }
+          }
+
+          vpc_parameter = {
+            vpcs = {
+              networking = { vpc_id = "vpc-xxxxxxxxxxxxxx" }
+            }
+          }
+          ```
+important_notes: |
+  - ⚠️ **VPC association is required:** each namespace entry must supply either `vpc_id` or `vpc` (a key into `vpc_parameter.vpcs`). Omitting both will cause a `try()` evaluation error at plan time.
+  - ℹ️ **VPC wrapper integration:** pass `vpc_parameter = { vpcs = module.wrapper_vpc.vpcs }` to avoid hardcoding VPC IDs and keep configs portable across environments.
 input_table: |
-  | name   | Define the domain name, using the key of each entry in the map.                | `any`    | `{}` | no |
-  | vpc_id | Specifies the identifier of the VPC associated with the zone if it is private. | `string` | `""` | no |
-  | tags | A map of tags to assign to resources. | `map` | `{}` | no |
+  | vpc_id | VPC ID to associate with the private DNS namespace.              | `string` | `null` | no |
+  | vpc    | Key into `vpc_parameter.vpcs` used to resolve the VPC ID.       | `string` | `null` | no |
+  | tags   | Map of additional tags to merge with the common resource tags.  | `map(string)` | `{}` | no |
