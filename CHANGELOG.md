@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/gocloudLa/terraform-aws-wrapper-cloudmap/compare/v1.0.0...v2.0.0) (2026-06-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **module:** add new vpc module compatibility ([#3](https://github.com/gocloudLa/terraform-aws-wrapper-cloudmap/issues/3))
+
+### Features
+
+* **module:** add new vpc module compatibility ([#3](https://github.com/gocloudLa/terraform-aws-wrapper-cloudmap/issues/3)) ([6dc2d71](https://github.com/gocloudLa/terraform-aws-wrapper-cloudmap/commit/6dc2d7191a4f3c4a31cce5d92066d48504cf1d40))
+
 ## 1.0.0 (2025-09-05)
 
 
